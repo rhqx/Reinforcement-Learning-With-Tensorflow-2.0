@@ -1,0 +1,4 @@
+**/logs
+*.log
+*.swp
+__pycache__
