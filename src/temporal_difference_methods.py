@@ -36,8 +36,6 @@ class Game():
         prob = distribution[a]
         return a, prob
 
-
-
     def play(self):
         states = []
         pred_vs = []
@@ -103,6 +101,7 @@ class LossEnum(enum.Enum):
         else:
             return 'error'
 
+
 class Agent():
     def __init__(self, idx, params, params_name, writer):
         print (params)
@@ -166,6 +165,8 @@ class Agent():
                 loss = self.vanilla_loss(a, predictions, v)
             elif self.loss_fun == LossEnum.BASELINE:
                 loss = self.baseline_loss(a, predictions, advantage)
+            else:
+                raise NotImplementedError
         gradients = tape.gradient(loss, self.model_pi.trainable_variables)
         self.optimizer_pi.apply_gradients(zip(gradients, self.model_pi.trainable_variables))
 
@@ -238,8 +239,7 @@ if __name__ == '__main__':
     ]
 
    
-    #hp = HyperParam(h1, h2, h3)
-    hp = HyperParam(h2)
+    hp = HyperParam(h1, h2, h3)
     
     idx = 0
     while True:
